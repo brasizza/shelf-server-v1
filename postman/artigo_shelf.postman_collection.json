@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "6c22b4b0-481b-43bc-b00f-2b7c231fbd8c",
+		"name": "artigo_shelf",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5136665"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9080/orders",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:9080/order/2",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9080",
+					"path": [
+						"order",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jorge\",\n    \"address\": \"Rua DD 22\",\n    \"order_id\": \"C-22\",\n    \"order_total\": 34.92,\n    \"provider\": \"rappi\",\n    \"order_provider_id\": \"96c2275f-de98-497c-88be-73ee7b64560f\",\n    \"status\": 1\n   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:9080/order",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9080",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:9080/order/4",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9080",
+					"path": [
+						"order",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"MAMAMEMA\",\n    \"address\": \"Rua DD 2asdasdasdasd2\",\n    \"order_id\": \"C-22\",\n    \"order_total\": 34.92,\n    \"provider\": \"rappi\",\n    \"order_provider_id\": \"96c2275f-de98-497c-88be-73ee7b64560f\",\n    \"status\": 2\n   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:9080/order/10",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "9080",
+					"path": [
+						"order",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
