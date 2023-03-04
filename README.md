@@ -6,6 +6,9 @@ Vamos ao primeiro artigo da série que se tudo der certo sai 100%
 
 O json para testar no postman se encontra aqui:
 
+
+<script src="https://gist.github.com/brasizza/7033131144b101be7a88bda056670040.js"></script>
+ 
 [POSTMAN](https://github.com/brasizza/shelf-server-v1/blob/master/postman/artigo_shelf.postman_collection.json)
 
 Vamos iniciar explicando como será nossa api:
