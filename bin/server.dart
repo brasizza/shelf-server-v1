@@ -27,10 +27,15 @@ void main(List<String> args) async {
   GetIt.I.registerSingleton<Database>(mysql, instanceName: Consts.mysqlInstance);
   final ip = InternetAddress.anyIPv4;
   final Router router = Router();
+  router.add('get', '/', _healthCheck);
   final handler = Pipeline().addMiddleware(logRequests()).addHandler(OrderRoute.routes(
         router,
       ));
   final port = int.parse(env['server_port'] ?? '8080');
   final server = await serve(handler, ip, port);
   print('Server listening on port ${server.port}');
+}
+
+Response _healthCheck(Request req) {
+  return Response.ok('');
 }
