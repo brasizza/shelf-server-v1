@@ -20,7 +20,9 @@ Iremos conectar em um banco mysql onde terá nosso banco de dados chamado de **d
 Teremos as rotas de pegar Todos os pedidos, pegar um pedido por ID, Inserir, Alterar e excluir o pedido por ID
 
 Nossa tabela do mysql
-{% gist https://gist.github.com/brasizza/7033131144b101be7a88bda056670040 %}
+
+
+[gist https://gist.github.com/brasizza/7033131144b101be7a88bda056670040 ]
 ---
 
 
@@ -48,16 +50,16 @@ Iremos criar um concentrador de logs que chamaremos de
  **developer** e iremos colocar em **lib/src/core/developer**
 iremos criar o **developer.dart**
 
-{% gist https://gist.github.com/brasizza/919ac69ee19398d969bbbc0c1d60ed3c %}
+[gist https://gist.github.com/brasizza/919ac69ee19398d969bbbc0c1d60ed3c ]
 
 Estou também fazendo uns testes de abstração de banco de dados, portanto é **meramente experimental**, onde teoricamente eu poderia usar qualquer banco de dados (que podemos testar depois, por exemplo o hive), existem alguns métodos nele que eu ainda não implementei, pois como foi construído para o **hive**, consegui adaptar muito bem para o **mysql**
 
 Vamos criar uma pasta em **lib/src/core/database** e colocaremos nosso database.dart e o nosso mysql_database.dart
 
-{% gist https://gist.github.com/brasizza/19ed2277182040c06e10fff2fbf9aa8a %}
+[gist https://gist.github.com/brasizza/19ed2277182040c06e10fff2fbf9aa8a ]
 
 
-{% gist https://gist.github.com/brasizza/3c3db69b258805b4970f15619822adb6 %}
+[gist https://gist.github.com/brasizza/3c3db69b258805b4970f15619822adb6 ]
 
 
 ## ESTRUTURA DO PROJETO
@@ -75,13 +77,13 @@ Para ficar mais fácil , fora da pasta bin, iremos criar uma pasta **lib**, e de
 Primeiramente precisamos criar nosso model, e olhando a nossa tabela temos os campos que serão representados da nossa tabela.Podemos notar que os campos estão em snake_case e por padrão o flutter 'sugere' que as propriedades sejam em camelCase, então teremos que fazer algumas traduções de campos além de para ficar mais fácil iremos criar um enum para o nosso campo de **status** 
 
 O enum do status que iremos criar na pasta **lib/src/enum/order_status.dart**
-{% gist https://gist.github.com/brasizza/45a001befab9d4b8a3ca23117213d067 %}
+[gist https://gist.github.com/brasizza/45a001befab9d4b8a3ca23117213d067 ]
 
 O nosso model do Order, criei com a extensão do [Dart class generator ](https://marketplace.visualstudio.com/items?itemName=hzgood.dart-data-class-generator) , ele ajuda demais a construir rapidamente um model
 
 Model que iremos criar na pasta **lib/src/data/model/order.dart**
 
-{% gist https://gist.github.com/brasizza/8206a25c59ab3eddcc78d4258976ee26 %}
+[gist https://gist.github.com/brasizza/8206a25c59ab3eddcc78d4258976ee26 ]
 
 Pontos importantes da nossa model que foram customizados, como por exemplo o **orderId** que no nosso banco é **order_id** , e os outros, que tiveram que ser traduzidos no _fromMap_ exatamente como está na tabela
 
@@ -107,7 +109,7 @@ Como eu havia mencionado, iremos utilizar 2 camadas acima da controller: a servi
 
 Iremos inicialmente criar a abstração da service e depois implementar. Vamos chamar de order_service e vamos colocar ela dentro da pasta **lib/src/service/order_service.dart**
 
-{% gist https://gist.github.com/brasizza/34e42194eb3a709bb223802fcfc85d49 %}
+[gist https://gist.github.com/brasizza/34e42194eb3a709bb223802fcfc85d49 ]
 onde:
 - **getAll** pode ou não retornar uma lista de Order,
 
@@ -119,7 +121,7 @@ onde:
 - **update** , atualiza um Order com base em um id, atualizando os campos que foram preenchidos para atualização
 
 
-{% gist https://gist.github.com/brasizza/cdcab3db69a5b16f764badc1cc1252ea %}
+[gist https://gist.github.com/brasizza/cdcab3db69a5b16f764badc1cc1252ea ]
 
 Se olharmos no service, iremos ver que temos algumas particularidades para deixar nosso código mais limpo, como por exemplo as checagens para deletar ou atualizar um registro, além de por exemplo ele retornar um objeto Order para sua service seja com ele atualizado no caso do update ou o que foi inserido naquele momento, e no caso do delete em particular, ele te manda o registro que foi excluído!
 
@@ -128,14 +130,14 @@ Além disso iremos utilizar o método **updateMap** que, como pegamos o objeto a
 Também iremos criar um **repository** chamado **order_repository** na pasta
 **lib/src/data/repository/order_repository.dart**
 
-{% gist https://gist.github.com/brasizza/f43ad2e0ae4105e12c14a442723b4121 %}
+[gist https://gist.github.com/brasizza/f43ad2e0ae4105e12c14a442723b4121 ]
 
 
 A grande diferença entre o **repository** e o service estão nos métodos de inserir, deletar e atualizar, onde o **repository** só precisa entregar pro service, se deu certo ou não, e só no caso do inserir que ele precisa retornar o id inserido para que o service possa tomar as providencias necessárias.
 
 A implementação do repository para explicação
 
-{% gist https://gist.github.com/brasizza/365697f0fb102088761e61855f5ca702 %}
+[gist https://gist.github.com/brasizza/365697f0fb102088761e61855f5ca702 ]
 
 No repository fazemos a conexão com o banco de dados que por fim faz todas as ações necessárias, além de no salvar, nós utilizamos o método **toDatabase** que criamos que basicamente é para normalizar os nomes dos campos com os nomes das tabelas do banco de dados, assim facilita nosso trabalho de ter que normalizar (ou seja, colocar os mesmos nomes da tabela)
 
@@ -156,7 +158,7 @@ Como você deve ter notado, normalmente fazemos a inversão dependência e injet
 
 Uma coisa importante no nosso controller é que como estamos trabalhando com o shelf, o retorno de todos os métodos devem ser um Response, para que o shelf possa responder corretamente com 200, ou 400 ou 500 para o nosso cliente na ponta onde está acessando o endpoint específico que iremos criar logo em seguida.
 
-{% gist https://gist.github.com/brasizza/4ed019623163b318c7cd2ee1672676c2 %}
+[gist https://gist.github.com/brasizza/4ed019623163b318c7cd2ee1672676c2 ]
 
 O controller que tem o service injetado será nossa ponta para ligar diretamente no shelf, podemos ver que na maioria dos casos, faz uma logica simples e chama o service que faz toda a lógica juntamente com o controller retornando somente o objeto ou um nulo indicando erro, sempre respeitando o máximo possível das respostas http: 
 
@@ -165,17 +167,17 @@ O controller que tem o service injetado será nossa ponta para ligar diretamente
 - 5xx erro crítico no nosso servidor ou banco de dados
 
 Eu particularmente gosto de nomear minhas instâncias em constantes para ficar mais fácil a recuperação, então como sabemos que teremos que injetar o mysql, o nosso service do order e o repository, já vamos criar a nossa classe que ficará com os nomes das constantes.
-{% gist https://gist.github.com/brasizza/fc7e7e00281c969966d62b89a565a9b1 %}
+[gist https://gist.github.com/brasizza/fc7e7e00281c969966d62b89a565a9b1 ]
 Eu coloco nomes grandes, porque como esta na propriedade não tem problema nenhum porque vai pegar de **Consts.mysqlInstance** por exemplo
 
 Até agora não colocamos um dedo no código do shelf propriamente dito e provavelmente se criou um template do shelf igual descrito acima o seu server.dart vai estar parecido com algo assim
-{% gist https://gist.github.com/brasizza/1b8fae896c4d24a14501b883a9e7538b %}
+[gist https://gist.github.com/brasizza/1b8fae896c4d24a14501b883a9e7538b ]
 
 isso quer dizer que , se for executado esse shelf do jeito que está e entrar no seu ip:8080 ele vai mostrar na tela um **Hello world**
 
 A primeira coisa que vamos fazer ai é criar um arquivo .env na raiz do seu projeto para que possamos colocar os dados do seu banco de dados 
 
-{% gist https://gist.github.com/brasizza/af2d7c7b58174fb483665da1364c360d %}
+[gist https://gist.github.com/brasizza/af2d7c7b58174fb483665da1364c360d ]
 
 Vamos usar o dotenv para carregar esse arquivo e também vamos usar o GetIt para guardar essa instância para um futuro uso. Além disso vamos no **server.dart** mesmo fazer a conexão como o mysql e também guardar essa instância.
 
@@ -208,7 +210,7 @@ Criamos um **order_route.dart** que ainda está vazio e vamos criar nossas rotas
 
 Como já criamos nosso controller, o nosso service E a nossa repository iremos iniciar a instância deles somente neste ponto , para que a responsabilidade da criação das instâncias seja somente onde ela é chamada de fato!
 Iremos criar um método estático chamado routes onde iremos criar nossas chamadas de rotas como descritas abaixo
-{% gist https://gist.github.com/brasizza/e8f560e708bd923045144951a9b42624 %}
+[gist https://gist.github.com/brasizza/e8f560e708bd923045144951a9b42624 ]
 
 podemos ver que foram criados 5 rotas bases 
 
@@ -225,7 +227,7 @@ Colocaremos a porta do shelf padrão como vindo do .env, e se não encontrar ele
 
 Iremos fazer de um jeito inicialmente que só será possível incluir as rotas do order, mas caso nós formos progredindo podemos alterar para contemplar mais rotas
 
-{% gist https://gist.github.com/brasizza/ffdfca537d48af743b34aa667e44f0ba %}
+[gist https://gist.github.com/brasizza/ffdfca537d48af743b34aa667e44f0ba ]
 
 
 e com isso terminamos nossa primeira parte do servidor shelf. Sei que é muita informação e muito texto, mas se você se perdeu em algum lugar, você inicialmente pode tentar me chamar no [discord](https://discord.gg/Brasizza#7615) pois me ajuda demais a entender onde está o problema e ajudar a corrigir!
