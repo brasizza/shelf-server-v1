@@ -21,5 +21,5 @@ COPY --from=build /app/.env .env
 
 
 # Start server.
-EXPOSE 8080
+EXPOSE 80
 CMD ["/app/bin/server"]
